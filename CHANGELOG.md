@@ -1,3 +1,8 @@
+0.12.2 - 2018-07-12
+
+  - Update npm dependencies, including request, to fix yet another vulnerablility
+  - Add option to pass proxy configuration to websocket
+
 0.12.1 — 2016-09-15
 
   - Update npm dependencies, including request, to fix vulnerability (#89)

@@ -58,7 +58,12 @@ var ddpclient = new DDPClient({
   useSockJs: true,
   // Use a full url instead of a set of `host`, `port` and `ssl`
   // do not set `useSockJs` option if `url` is used
-  url: 'wss://example.com/websocket'
+  url: 'wss://example.com/websocket',
+  // The contents of `proxyOpts` are passed to the underlying
+  // Websocket client.
+  proxyOpts: {
+    origin: 'http://username:password@proxy.example.com'
+  }
 });
 
 /*
