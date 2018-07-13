@@ -2,9 +2,9 @@
 
 var DDPClient = require("../lib/ddp-client");
 
-var ddpclient = new DDPClient({
+var ddpclientOpts = {
   // All properties optional, defaults shown
-  host : "localhost",
+  host : process.env.host || "localhost",
   port : 3000,
   ssl  : false,
   autoReconnect : true,
@@ -20,7 +20,16 @@ var ddpclient = new DDPClient({
   // Use a full url instead of a set of `host`, `port` and `ssl`
   // do not set `useSockJs` option if `url` is used
   url: 'wss://example.com/websocket'
-});
+};
+
+if (process.env.proxy_origin) {
+  console.log("Using proxy:", process.env.proxy_origin);
+  ddpclientOpts.proxyOpts = {
+    origin: process.env.proxy_origin
+  }
+}
+
+var ddpclient = new DDPClient(ddpclientOpts);
 
 /*
  * Connect to the Meteor Server
@@ -29,7 +38,7 @@ ddpclient.connect(function(error, wasReconnect) {
   // If autoReconnect is true, this callback will be invoked each time
   // a server connection is re-established
   if (error) {
-    console.log("DDP connection error!");
+    console.log("DDP connection error!", error);
     return;
   }
 
